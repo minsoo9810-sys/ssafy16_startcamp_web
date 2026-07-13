@@ -3,150 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I AM : Stanley Kubrick</title>
+    <title>I AM : 스탠리 큐브릭</title>
+    <!-- Tailwind CSS 로드 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+KR:wght@300;400;700&display=swap');
-
-        :root {
-            --bg-deep: #1a0b2e;
-            --purple-accent: #6b21a8;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --text-gold: #d8b4fe;
-            --cream: #f3f4f6;
-        }
-
+        
         body {
             background: linear-gradient(135deg, #0f051c 0%, #1a0b2e 100%);
-            color: var(--cream);
+            color: #f3f4f6;
             font-family: 'Noto Serif KR', serif;
+            overflow-x: hidden;
         }
-
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
         
         .glass {
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        /* 복구된 카드 호버 효과 */
-        .strength-card {
+        
+        .film-card {
             transition: all 0.3s ease;
+            height: 320px; /* 완벽하게 통일된 카드 크기 */
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
         }
-        .strength-card:hover {
+        
+        .film-card:hover {
             transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--purple-accent);
+            border-color: #6b21a8;
             box-shadow: 0 10px 30px rgba(107, 33, 168, 0.3);
+        }
+        
+        /* 스크롤바 커스텀 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f051c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6b21a8;
+            border-radius: 4px;
         }
     </style>
 </head>
-<body class="min-h-screen text-gray-100">
+<body class="min-h-screen p-4 md:p-8">
 
-    <!-- Hero -->
-    <header class="h-[60vh] flex flex-col justify-center items-center text-center">
-        <h1 class="text-5xl md:text-6xl mb-6 font-bold text-white">I AM : STANLEY KUBRICK</h1>
-        <p class="text-xl opacity-80">완벽을 향한 편집증적 집착, 스탠리 큐브릭의 세계</p>
+    <header class="h-[60vh] flex flex-col justify-center items-center text-center px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-wide text-white drop-shadow-lg">
+            I AM : 김민수
+        </h1>
+        <p class="text-lg md:text-xl text-purple-200 font-light max-w-2xl leading-relaxed">
+            AI에 관심이 있는 공대 졸업생. 취미로는 영화를 좋아합니다.
+        </p>
+        <div class="mt-8 w-12 h-[2px] bg-purple-500 animate-pulse"></div>
     </header>
 
-    <!-- About -->
-    <section class="py-20 max-w-5xl mx-auto px-6">
-        <h2 class="text-3xl mb-10 text-center font-bold">About Kubrick</h2>
-        <p class="text-center text-lg leading-relaxed opacity-90">영화사의 거장, 스탠리 큐브릭은 기술적 완벽함과 철학적 깊이를 영화라는 매체에 완벽하게 녹여낸 감독입니다.</p>
+    <section class="max-w-4xl mx-auto py-16 text-center">
+        <h2 class="text-3xl font-bold mb-6 text-purple-300 tracking-widest uppercase">About Kubrick</h2>
+        <p class="text-lg opacity-90 leading-relaxed max-w-2xl mx-auto font-light">
+            영화사의 거장 스탠리 큐브릭은 기술적인 무결함과 날카로운 철학적 통찰을 은막에 담아낸 선구자입니다. 
+            그의 극도로 통제된 연출력은 시네필들에게는 분석의 미궁을, 대중에게는 압도적인 충격을 선사해 왔습니다.
+        </p>
     </section>
 
-    <!-- Filmography -->
-    <section id="filmography" class="py-20 max-w-6xl mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center mb-16">Filmography</h2>
-        <div id="film-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-            <!-- JS로 주입 -->
+    <section class="max-w-6xl mx-auto py-16">
+        <h2 class="text-3xl font-bold text-center mb-4 text-purple-300 tracking-widest uppercase">Filmography</h2>
+        <p class="text-center text-sm text-gray-400 mb-12">각 카드를 클릭하면 상세 연출 의도와 정보를 감상할 수 있습니다.</p>
+        
+        <div id="film-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
+            <!-- 자바스크립트를 통해 연대순으로 정렬된 영화 카드가 동적으로 주입됩니다 -->
         </div>
     </section>
 
-    <!-- Strengths -->
-    <section id="strengths" class="py-20 max-w-5xl mx-auto px-6">
-        <h2 class="text-3xl font-bold text-center mb-10">핵심 매력 포인트</h2>
+    <section class="max-w-5xl mx-auto py-16">
+        <h2 class="text-3xl font-bold text-center mb-12 text-purple-300 tracking-widest uppercase">핵심 매력 포인트</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass strength-card p-8 rounded-2xl text-center">
-                <h3 class="text-xl mb-3 text-purple-300">롱테이크</h3>
-                <p>독보적인 호흡의 촬영 기술</p>
+            <div class="glass p-8 rounded-2xl text-center border border-purple-900/40 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(168,85,247,0.3)] cursor-pointer">
+                <div class="text-purple-400 text-3xl mb-4">⊙</div>
+                <h3 class="text-xl font-bold mb-2 text-white">롱테이크 촬영</h3>
+                <p class="text-sm opacity-75 leading-relaxed">압도적인 공간감과 숨 막힐 듯한 영화적 호흡을 유도하는 촬영 기법.</p>
             </div>
-            <div class="glass strength-card p-8 rounded-2xl text-center">
-                <h3 class="text-xl mb-3 text-purple-300">웅장한 미감</h3>
-                <p>화면을 압도하는 대칭적 미학</p>
+            <div class="glass p-8 rounded-2xl text-center border border-purple-900/40 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(168,85,247,0.3)] cursor-pointer">
+                <div class="text-purple-400 text-3xl mb-4">▣</div>
+                <h3 class="text-xl font-bold mb-2 text-white">웅장한 미감</h3>
+                <p class="text-sm opacity-75 leading-relaxed">철저한 1점 투시도법과 극단적인 대칭 레이아웃이 주는 완벽한 프레임.</p>
             </div>
-            <div class="glass strength-card p-8 rounded-2xl text-center">
-                <h3 class="text-xl mb-3 text-purple-300">완벽한 연출</h3>
-                <p>지독한 완벽주의의 산물</p>
+            <div class="glass p-8 rounded-2xl text-center border border-purple-900/40 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(168,85,247,0.3)] cursor-pointer">
+                <div class="text-purple-400 text-3xl mb-4">⚙</div>
+                <h3 class="text-xl font-bold mb-2 text-white">완벽한 연출</h3>
+                <p class="text-sm opacity-75 leading-relaxed">원하는 완벽한 한 장면을 얻기 위해 수백 번의 테이크를 마다치 않는 편집증적 정교함.</p>
             </div>
         </div>
     </section>
 
-    <!-- Recommendations -->
-    <section id="recommend" class="py-20 max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-3xl font-bold mb-10">입문자를 위한 추천작 3편</h2>
-        <div class="flex flex-wrap justify-center gap-6">
-            <span class="px-6 py-3 border border-purple-500 rounded-full text-purple-200">2001: A Space Odyssey</span>
-            <span class="px-6 py-3 border border-purple-500 rounded-full text-purple-200">The Shining</span>
-            <span class="px-6 py-3 border border-purple-500 rounded-full text-purple-200">A Clockwork Orange</span>
+    <section class="max-w-4xl mx-auto py-16 text-center">
+        <h2 class="text-3xl font-bold mb-10 text-purple-300 tracking-widest uppercase">입문자를 위한 추천작 3편</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass p-6 rounded-xl border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(168,85,247,0.2)] cursor-pointer">
+                <span class="text-xs text-purple-400 tracking-widest block mb-2">1968 | Sci-Fi</span>
+                <h3 class="text-lg font-bold text-white">2001: A Space Odyssey</h3>
+                <p class="text-xs mt-2 opacity-70">인류 진화와 우주 문명에 대한 장엄한 연대기</p>
+            </div>
+            <div class="glass p-6 rounded-xl border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(168,85,247,0.2)] cursor-pointer">
+                <span class="text-xs text-purple-400 tracking-widest block mb-2">1980 | Horror</span>
+                <h3 class="text-lg font-bold text-white">The Shining</h3>
+                <p class="text-xs mt-2 opacity-70">고립된 공간 속 서서히 무너져 내리는 인간 광기의 시각화</p>
+            </div>
+            <div class="glass p-6 rounded-xl border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(168,85,247,0.2)] cursor-pointer">
+                <span class="text-xs text-purple-400 tracking-widest block mb-2">1971 | Dystopian</span>
+                <h3 class="text-lg font-bold text-white">A Clockwork Orange</h3>
+                <p class="text-xs mt-2 opacity-70">국가 권력의 통제와 악의 본질에 대한 충격적인 질문</p>
+            </div>
         </div>
     </section>
 
-    <!-- Modal -->
-    <div id="modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-        <div class="glass p-8 rounded-3xl max-w-lg w-full relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">✕</button>
-            <h3 id="modal-title" class="text-3xl font-bold mb-2 text-purple-300"></h3>
-            <p id="modal-year" class="text-sm opacity-60 mb-6"></p>
-            <div id="modal-content" class="space-y-4"></div>
+    <div id="modal" class="fixed inset-0 z-50 hidden bg-black/85 flex items-center justify-center p-4 transition-all duration-300">
+        <div class="glass p-8 rounded-3xl max-w-lg w-full relative border border-purple-500/30 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl focus:outline-none">&times;</button>
+            <h3 id="modal-title" class="text-2xl font-bold mb-4 text-purple-300 border-b border-purple-900/50 pb-2"></h3>
+            <div id="modal-content" class="text-gray-200 space-y-4 font-light text-sm md:text-base leading-relaxed">
+                <!-- 동적으로 영화의 상세 스펙과 줄거리가 들어갑니다 -->
+            </div>
         </div>
     </div>
 
-    <footer class="text-center py-20 opacity-50">&copy; 2026 I AM Kubrick Project.</footer>
+    <footer class="text-center py-16 opacity-60 border-t border-purple-950/40 max-w-4xl mx-auto mt-16 text-sm">
+        <p>&copy; 2026 I AM Kubrick Project. Designed for Film Lovers.</p>
+    </footer>
 
     <script>
+        // 전면 수정 및 최적화된 스탠리 큐브릭 13개 필모그래피 연대기 데이터베이스
         const films = [
-            { year: 1953, title: "Fear and Desire", genre: "War/Drama", cast: "Frank Silvera", desc: "큐브릭의 첫 장편 영화, 전쟁 속에서 길을 잃은 네 명의 병사 이야기." },
-            { year: 1955, title: "Killer's Kiss", genre: "Film Noir", cast: "Jamie Smith", desc: "복서와 무용수의 우연한 만남과 비극적인 사건." },
-            { year: 1956, title: "The Killing", genre: "Crime/Noir", cast: "Sterling Hayden", desc: "경마장 강도 사건을 다룬 치밀한 범죄 스릴러." },
-            { year: 1957, title: "Paths of Glory", genre: "War", cast: "Kirk Douglas", desc: "제1차 세계대전, 부당한 명령에 맞서는 장교의 이야기." },
-            { year: 1960, title: "Spartacus", genre: "Epic/Drama", cast: "Kirk Douglas", desc: "로마 공화정에 맞선 노예 검투사 스파르타쿠스의 대서사시." },
-            { year: 1962, title: "Lolita", genre: "Drama/Romance", cast: "James Mason", desc: "중년 남성과 어린 소녀의 위험하고 파격적인 사랑." },
-            { year: 1964, title: "Dr. Strangelove", genre: "Satire/War", cast: "Peter Sellers", desc: "핵전쟁의 위기를 블랙 코미디로 승화시킨 거장적 풍자." },
-            { year: 1968, title: "2001: A Space Odyssey", genre: "Sci-Fi", cast: "Keir Dullea", desc: "인류의 기원과 우주의 신비를 담은 SF 역작." },
-            { year: 1971, title: "A Clockwork Orange", genre: "Sci-Fi/Crime", cast: "Malcolm McDowell", desc: "폭력성과 인간의 자유의지에 관한 철학적 고찰." },
-            { year: 1975, title: "Barry Lyndon", genre: "Period Drama", cast: "Ryan O'Neal", desc: "18세기 아일랜드 청년의 파란만장한 성공과 몰락." },
-            { year: 1980, title: "The Shining", genre: "Horror", cast: "Jack Nicholson", desc: "고립된 호텔에서 광기로 치닫는 가장의 심리적 공포." },
-            { year: 1987, title: "Full Metal Jacket", genre: "War", cast: "Matthew Modine", desc: "해병대 훈련소와 베트남 전쟁의 비정한 현실." },
-            { year: 1999, title: "Eyes Wide Shut", genre: "Drama/Mystery", cast: "Tom Cruise", desc: "한 부부가 겪는 성적 환상과 질투, 인간 본성의 탐구." }
+            { 
+                title: "Fear and Desire", 
+                year: 1953, 
+                actors: "Frank Silvera, Kenneth Harp", 
+                genre: "War/Drama", 
+                desc: "큐브릭의 첫 장편 영화. 가상의 숲속에서 길을 잃은 네 명의 병사를 통해 전쟁의 본질과 인간 내면에 도사린 원초적인 공포, 자아 분열을 형이상학적인 연출로 그려냈습니다. 저예산 독립영화로 거장의 원초적 재능을 엿볼 수 있습니다.", 
+                image: null 
+            },
+            { 
+                title: "Killer's Kiss", 
+                year: 1955, 
+                actors: "Frank Silvera, Jamie Smith", 
+                genre: "Film Noir/Thriller", 
+                desc: "퇴물 권투 선수와 쇼걸, 악랄한 갱단 두목의 치정과 갈등을 다룬 초기 대표 필름 누아르. 마네킹 창고에서 벌어지는 숨 막히는 결투 시퀀스는 명암 대비를 완벽히 통제하는 큐브릭 특유의 연출력이 태동하는 계기를 보여줍니다.", 
+                image: null 
+            },
+            { 
+                title: "The Killing", 
+                year: 1956, 
+                actors: "Sterling Hayden, Coleen Gray", 
+                genre: "Crime/Heist Noir", 
+                desc: "경마장 강도 계획을 주도하는 이들의 치밀한 사건 해결 과정을 담았습니다. 당시로서는 매우 파격적이었던 '비선형적 시간 구조'를 완벽히 설계하여 영화사에 범죄 장르 구조의 새로운 지평을 연 초기 걸작입니다.", 
+                image: null 
+            },
+            { 
+                title: "Paths of Glory", 
+                year: 1957, 
+                actors: "Kirk Douglas, Ralph Meeker", 
+                genre: "War/Drama", 
+                desc: "제1차 세계대전 참호 속에서 펼쳐지는 군부 고위층의 모순과 참혹함을 사실적으로 비판한 반전 걸작. 인간성을 잃어버린 군사 권력에 저항하는 주인공을 통해 부조리함의 정수를 심도 있게 파헤쳤습니다.", 
+                image: null 
+            },
+            { 
+                title: "Spartacus", 
+                year: 1960, 
+                actors: "Kirk Douglas, Laurence Olivier", 
+                genre: "History/Epic", 
+                desc: "로마 제국에 맞선 전설적인 노예 반란군 지도자 스파르타쿠스의 일대기를 그린 대서사시. 큐브릭이 직접 기획하지 않은 유일한 할리우드 시스템 영화이지만 엄청난 규모의 전투 배치 예술을 정립하는 밑거름이 된 명작입니다.", 
+                image: null 
+            },
+            { 
+                title: "Lolita", 
+                year: 1962, 
+                actors: "James Mason, Shelley Winters, Sue Lyon", 
+                genre: "Drama/Romance", 
+                desc: "블라디미르 나보코프의 동명 파격 문학 소설을 영민하게 은막으로 옮겼습니다. 성적 자극보다는 집착과 파멸로 흘러가는 한 지식인의 도덕적 상실을 블랙 코미디와 심리적 긴장감을 더해 격조 있게 풀어내 큰 반향을 이끌어냈습니다.", 
+                image: null 
+            },
+            { 
+                title: "Dr. Strangelove", 
+                year: 1964, 
+                actors: "Peter Sellers, George C. Scott", 
+                genre: "Comedy/War (Sci-Fi)", 
+                desc: "냉전 시대 인류의 핵전쟁 공포를 통렬한 조소와 풍자로 담아낸 영화사의 불멸의 블랙 코미디. 미쳐버린 군 지휘관들로 인해 종말로 치닫는 인류의 우스꽝스러운 운명을 지극히 차가운 연출로 재치 있게 고발했습니다.", 
+                image: "images_2.jpg" 
+            },
+            { 
+                title: "2001: A Space Odyssey", 
+                year: 1968, 
+                actors: "Keir Dullea, Gary Lockwood", 
+                genre: "Sci-Fi/Mystery", 
+                desc: "인류 문명의 기원부터 우주를 넘어선 초월적 진화까지를 장엄한 클래식 음악과 혁신적인 고품격 미장센으로 그려낸 불후의 우주 SF 서사시. 철학적 깊이와 촬영 기법 전반에서 영화의 예술적 영역을 완전히 뒤바꿔놓은 걸작입니다.", 
+                image: "8385-space-station-423702_1920_2.jpg" 
+            },
+            { 
+                title: "A Clockwork Orange", 
+                year: 1971, 
+                actors: "Malcolm McDowell, Patrick Magee", 
+                genre: "Dystopian/Sci-Fi", 
+                desc: "통제 불가능한 폭력을 행사하는 불량 소년 알렉스를 주인공으로 삼아, 국가 권력이 과학이라는 이름 아래 인간의 자유 의지를 말살하려는 디스토피아적 부조리를 과감하고 화려한 색감과 리드미컬한 연출로 그려낸 뜨거운 논란작입니다.", 
+                image: "shodg6bty3661_2.jpg" 
+            },
+            { 
+                title: "Barry Lyndon", 
+                year: 1975, 
+                actors: "Ryan O'Neal, Marisa Berenson", 
+                genre: "Period Drama/Epic", 
+                desc: "한 아일랜드 청년의 기회주의적 상승과 몰락을 통해 18세기 귀족 사회의 가식적 화려함을 폭로하는 우아한 역사 서사시. NASA의 인공위성 촬영 기술용 최고 광학 렌즈를 빌려와 오직 촛불 조명만으로 세계 명화 같은 스펙터클을 탄생시켰습니다.", 
+                image: "wvbchmv3z9gd1_2.jpg" 
+            },
+            { 
+                title: "The Shining", 
+                year: 1980, 
+                actors: "Jack Nicholson, Shelley Duvall", 
+                genre: "Horror/Thriller", 
+                desc: "겨울철 고립된 오버룩 호텔을 배경으로, 서서히 광기에 사로잡히는 소설가 잭과 그 가족의 처절한 생존기. 시네컴(Steadicam) 기술을 극한으로 전수하여 미궁과 같은 공간이 주는 폐쇄 공포를 역대 가장 서늘하게 연출한 최고의 명작입니다.", 
+                image: "images (1)_2.jpg" 
+            },
+            { 
+                title: "Full Metal Jacket", 
+                year: 1987, 
+                actors: "Matthew Modine, R. Lee Ermey", 
+                genre: "War/Drama", 
+                desc: "지독한 해병대 훈련 과정에서의 자아 상실(1부)과 베트남 전쟁 한복판의 참혹함(2부)을 건조하면서도 냉철하게 대비시킨 명작. 전쟁이라는 거대 폭력이 한 개인을 어떻게 완벽히 괴물이나 소모품으로 세뇌시켜 가는지를 고발합니다.", 
+                image: "julianapimenta-design-1603625_1920_2.jpg" 
+            },
+            { 
+                title: "Eyes Wide Shut", 
+                year: 1999, 
+                actors: "Tom Cruise, Nicole Kidman", 
+                genre: "Mystery/Drama/Thriller", 
+                desc: "어느 중산층 의사 부부의 위선과 내밀한 성적 열망, 미스터리한 비밀 종교 모임의 어두운 밤을 꿈결 같은 몽환적 카메라 워킹으로 조명했습니다. 인간 본능 아래에 숨은 소외감과 불안감을 탐구한 그의 위대한 유작입니다.", 
+                image: "f403b522192657.5630e2d220f53_2.jpg" 
+            }
         ];
 
         const grid = document.getElementById('film-grid');
-        const modal = document.getElementById('modal');
-
+        
         films.forEach(film => {
             const card = document.createElement('div');
-            card.className = 'glass p-4 rounded-xl cursor-pointer hover:bg-purple-900/30 transition-all text-center';
-            card.innerHTML = `<h4 class="font-bold text-sm">${film.title}</h4><p class="text-xs opacity-50">${film.year}</p>`;
+            // 일관된 크기(film-card) 및 가독성 극대화 글래스모피즘 클래스 바인딩
+            card.className = 'glass film-card rounded-2xl overflow-hidden shadow-lg border border-purple-900/30';
+            
+            if (film.image) {
+                // 이미지가 제공된 작품의 고품질 포스터 카드 디자인
+                card.innerHTML = `
+                    <div class="h-64 overflow-hidden relative group">
+                        <img src="${film.image}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="${film.title}">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-center items-center text-center bg-black/40">
+                        <span class="text-[10px] text-purple-400 font-bold uppercase tracking-widest mb-1">${film.year}</span>
+                        <h3 class="text-xs md:text-sm font-bold text-white line-clamp-1">${film.title}</h3>
+                    </div>
+                `;
+            } else {
+                // 이미지가 없는 초기작의 경우 플레이스홀더 텍스트를 빼고 타이포 중심 미니멀 디자인
+                card.innerHTML = `
+                    <div class="w-full h-full p-6 flex flex-col justify-between text-center bg-purple-950/20 hover:bg-purple-950/40 transition-colors duration-300">
+                        <div class="text-[11px] text-purple-400 font-bold tracking-widest">${film.year}</div>
+                        <h3 class="text-sm md:text-base font-bold text-gray-100 self-center max-w-full px-2 leading-relaxed">${film.title}</h3>
+                        <div class="text-[10px] text-purple-500 font-light">Early Works</div>
+                    </div>
+                `;
+            }
+            
+            // 클릭 시 팝업 띄우기 함수 연계
             card.onclick = () => openModal(film);
             grid.appendChild(card);
         });
 
         function openModal(film) {
-            document.getElementById('modal-title').innerText = film.title;
-            document.getElementById('modal-year').innerText = film.year;
-            document.getElementById('modal-content').innerHTML = `
-                <p><strong>장르:</strong> ${film.genre}</p>
-                <p><strong>주연:</strong> ${film.cast}</p>
-                <p><strong>설명:</strong> ${film.desc}</p>
+            const modal = document.getElementById('modal');
+            const titleEl = document.getElementById('modal-title');
+            const contentEl = document.getElementById('modal-content');
+
+            titleEl.innerText = film.title;
+            
+            // 장르, 개봉 연도, 대표 배우, 줄거리가 모두 디테일하게 복구된 레이아웃 데이터 주입
+            contentEl.innerHTML = `
+                <div class="grid grid-cols-2 gap-4 text-xs border-b border-purple-900/30 pb-4 mb-4 text-purple-200">
+                    <div><strong>개봉 연도 :</strong> ${film.year}년</div>
+                    <div><strong>장르 :</strong> ${film.genre}</div>
+                    <div class="col-span-2"><strong>주요 배우 :</strong> ${film.actors}</div>
+                </div>
+                <div>
+                    <strong class="block text-purple-400 text-sm mb-2">영화적 특징 및 스토리 라인 :</strong>
+                    <p class="leading-relaxed opacity-90">${film.desc}</p>
+                </div>
             `;
+            
+            // 자연스러운 모달 표출
             modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // 뒷배경 스크롤 방지
         }
 
         function closeModal() {
+            const modal = document.getElementById('modal');
             modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // 뒷배경 스크롤 활성화
+        }
+
+        // 모달 영역 바깥을 클릭했을 때 모달을 닫아주는 사용자 경험 추가
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                closeModal();
+            }
         }
     </script>
 </body>
