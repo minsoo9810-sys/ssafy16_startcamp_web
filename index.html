@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I AM : 김민수</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+KR:wght@300;400;700&display=swap');
+        
+        body {
+            background-color: #0f051c;
+            color: #f3f4f6;
+            font-family: 'Noto Serif KR', serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .card-hover { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            border-color: #6b21a8;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .fancy-hover { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .fancy-hover:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(168, 85, 247, 0.6);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.35), 0 0 15px rgba(168, 85, 247, 0.2);
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        .film-card { height: 320px; display: flex; flex-direction: column; cursor: pointer; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f051c; }
+        ::-webkit-scrollbar-thumb { background: #6b21a8; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen relative">
+
+    <canvas id="bg-canvas" class="fixed inset-0 z-0 pointer-events-none"></canvas>
+
+    <div class="relative z-10 w-full">
+
+        <header class="h-[60vh] flex flex-col justify-center items-center text-center px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-wide text-white drop-shadow-[0_4px_12px_rgba(168,85,247,0.4)]">
+                I AM : 김민수
+            </h1>
+            <p class="text-lg md:text-xl text-purple-200 font-light max-w-2xl leading-relaxed">
+                AI에 관심이 있는 공대 졸업생. 취미로는 영화를 좋아합니다.
+            </p>
+            <div class="mt-8 w-12 h-[2px] bg-purple-500 animate-pulse"></div>
+        </header>
+
+        <section class="max-w-6xl mx-auto py-16 px-4 mb-8">
+            <h2 class="text-3xl font-bold text-center mb-12 text-purple-300 tracking-widest uppercase">My Journey</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                <div class="glass p-8 rounded-2xl text-center card-hover border border-purple-900/40">
+                    <div class="text-purple-400 text-3xl mb-4">🎓</div>
+                    <h3 class="text-lg font-bold text-white">기계공학부 졸업</h3>
+                </div>
+                <div class="glass p-8 rounded-2xl text-center card-hover border border-purple-900/40">
+                    <div class="text-purple-400 text-3xl mb-4">💻</div>
+                    <h3 class="text-lg font-bold text-white leading-snug">SW·AI 지능정보 아카데미 수료</h3>
+                </div>
+                <div class="glass p-8 rounded-2xl text-center card-hover border border-purple-900/40">
+                    <div class="text-purple-400 text-3xl mb-4">⏳</div>
+                    <h3 class="text-lg font-bold text-white">취업 준비 (실패)</h3>
+                </div>
+                <div class="glass p-8 rounded-2xl text-center card-hover border border-purple-900/40">
+                    <div class="text-purple-400 text-3xl mb-4">🚀</div>
+                    <h3 class="text-lg font-bold text-white">SSAFY 16기 입과</h3>
+                </div>
+                <div class="glass p-8 rounded-2xl text-center card-hover border border-purple-900/40">
+                    <div class="text-purple-400 text-3xl mb-4">🎯</div>
+                    <h3 class="text-lg font-bold text-white leading-snug">SSAFY 테스트 및 AI 스터디</h3>
+                </div>
+            </div>
+        </section>
+
+        <div class="h-16 md:h-24"></div>
+
+        <section class="max-w-4xl mx-auto py-16 text-center px-4 mt-16">
+            <h2 class="text-3xl font-bold mb-6 text-purple-300 tracking-widest uppercase">About Kubrick</h2>
+            <p class="text-lg opacity-90 leading-relaxed max-w-2xl mx-auto font-light">
+                영화사의 거장 스탠리 큐브릭은 기술적인 무결함과 날카로운 철학적 통찰을 은막에 담아낸 선구자입니다. 
+                그의 극도로 통제된 연출력은 시네필들에게는 분석의 미궁을, 대중에게는 압도적인 충격을 선사해 왔습니다.
+            </p>
+        </section>
+
+        <section class="max-w-6xl mx-auto py-16 px-4">
+            <h2 class="text-3xl font-bold text-center mb-4 text-purple-300 tracking-widest uppercase">Filmography</h2>
+            <p class="text-center text-sm text-gray-400 mb-12">각 카드를 클릭하면 상세 연출 의도와 정보를 감상할 수 있습니다.</p>
+            <div id="film-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
+        </section>
+
+        <section class="max-w-5xl mx-auto py-16 px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-purple-300 tracking-widest uppercase">핵심 매력 포인트</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass p-8 rounded-2xl text-center fancy-hover border border-purple-900/40">
+                    <div class="text-purple-400 text-3xl mb-4">⊙</div>
+                    <h3 class="text-xl font-bold mb-2 text-white">롱테이크 촬영</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">독보적인 호흡의 촬영 기술로 관객을 이야기 속으로 몰입시킵니다.</p>
+                </div>
+                <div class="glass p-8 rounded-2xl text-center fancy-hover border border-purple-900/40">
+                    <div class="text-purple-400 text-3xl mb-4">▣</div>
+                    <h3 class="text-xl font-bold mb-2 text-white">웅장한 미감</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">화면을 압도하는 완벽한 대칭과 절제된 미학의 정수를 보여줍니다.</p>
+                </div>
+                <div class="glass p-8 rounded-2xl text-center fancy-hover border border-purple-900/40">
+                    <div class="text-purple-400 text-3xl mb-4">⚙</div>
+                    <h3 class="text-xl font-bold mb-2 text-white">완벽한 연출</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">지독한 완벽주의가 빚어낸 영화사상 최고의 완벽한 연출력입니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto py-16 text-center px-4">
+            <h2 class="text-3xl font-bold mb-10 text-purple-300 tracking-widest uppercase">입문자를 위한 추천작 3편</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass p-6 rounded-xl fancy-hover border border-purple-500/20 text-left">
+                    <span class="text-xs text-purple-400 block mb-2 font-semibold">1968 | Sci-Fi</span>
+                    <h3 class="text-lg font-bold text-white mb-2">2001: A Space Odyssey</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">인류 진화와 우주 문명을 다룬 미장센의 정점.</p>
+                </div>
+                <div class="glass p-6 rounded-xl fancy-hover border border-purple-500/20 text-left">
+                    <span class="text-xs text-purple-400 block mb-2 font-semibold">1980 | Horror</span>
+                    <h3 class="text-lg font-bold text-white mb-2">The Shining</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">고립된 공간 속 광기를 스테디캠으로 극대화한 공포.</p>
+                </div>
+                <div class="glass p-6 rounded-xl fancy-hover border border-purple-500/20 text-left">
+                    <span class="text-xs text-purple-400 block mb-2 font-semibold">1971 | Dystopian</span>
+                    <h3 class="text-lg font-bold text-white mb-2">A Clockwork Orange</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">국가 권력과 인간 본성에 대한 충격적 고찰.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="modal" class="fixed inset-0 z-50 hidden bg-black/85 flex items-center justify-center p-4">
+        <div class="glass p-8 rounded-3xl max-w-lg w-full relative border border-purple-500/30 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl transition-colors">&times;</button>
+            <h3 id="modal-title" class="text-2xl font-bold mb-4 text-purple-300 border-b border-purple-900/50 pb-2"></h3>
+            <div id="modal-content" class="text-gray-200 text-sm md:text-base leading-relaxed"></div>
+        </div>
+    </div>
+
+    <script>
+        const films = [
+            { title: "Fear and Desire", year: 1953, actors: "Frank Silvera, Kenneth Harp", genre: "War/Drama", desc: "첫 장편 영화. 전쟁의 본질과 인간 내면의 공포를 형이상학적으로 연출했습니다." },
+            { title: "Killer's Kiss", year: 1955, actors: "Frank Silvera, Jamie Smith", genre: "Film Noir/Thriller", desc: "퇴물 권투 선수와 갱단의 갈등. 초기 필름 누아르의 명암 대비가 돋보입니다." },
+            { title: "The Killing", year: 1956, actors: "Sterling Hayden, Coleen Gray", genre: "Crime/Heist Noir", desc: "강도 계획을 다룬 범죄물. 비선형적 시간 구조를 처음으로 완벽히 설계했습니다." },
+            { title: "Paths of Glory", year: 1957, actors: "Kirk Douglas, Ralph Meeker", genre: "War/Drama", desc: "제1차 세계대전 참호 속 군부의 모순을 비판한 반전 걸작입니다." },
+            { title: "Spartacus", year: 1960, actors: "Kirk Douglas, Laurence Olivier", genre: "History/Epic", desc: "노예 반란군 지도자 스파르타쿠스의 대서사시. 거대한 전투 배치 예술을 정립했습니다." },
+            { title: "Lolita", year: 1962, actors: "James Mason, Shelley Winters", genre: "Drama/Romance", desc: "블라디미르 나보코프 소설을 원작으로 집착과 파멸의 심리를 격조 있게 다뤘습니다." },
+            { title: "Dr. Strangelove", year: 1964, actors: "Peter Sellers, George C. Scott", genre: "Comedy/War", desc: "냉전 시대 핵전쟁 공포를 통렬한 조소로 담아낸 불멸의 블랙 코미디입니다." },
+            { title: "2001: A Space Odyssey", year: 1968, actors: "Keir Dullea, Gary Lockwood", genre: "Sci-Fi/Mystery", desc: "인류 문명의 기원부터 우주 진화까지를 다룬 혁신적인 미장센의 걸작입니다." },
+            { title: "A Clockwork Orange", year: 1971, actors: "Malcolm McDowell, Patrick Magee", genre: "Dystopian/Sci-Fi", desc: "국가 권력의 통제와 자유 의지 사이의 부조리를 과감한 영상미로 담았습니다." },
+            { title: "Barry Lyndon", year: 1975, actors: "Ryan O'Neal, Marisa Berenson", genre: "Period Drama/Epic", desc: "18세기 귀족 사회를 오직 촛불 조명만으로 촬영한 우아한 역사 서사시입니다." },
+            { title: "The Shining", year: 1980, actors: "Jack Nicholson, Shelley Duvall", genre: "Horror/Thriller", desc: "고립된 공간 속 광기를 스테디캠을 극한으로 활용해 서늘하게 연출했습니다." },
+            { title: "Full Metal Jacket", year: 1987, actors: "Matthew Modine, R. Lee Ermey", genre: "War/Drama", desc: "훈련소와 전쟁터를 대비시켜 인간이 어떻게 소모품이 되는지 고발합니다." },
+            { title: "Eyes Wide Shut", year: 1999, actors: "Tom Cruise, Nicole Kidman", genre: "Mystery/Drama", desc: "부부의 위선과 내밀한 욕망을 꿈결 같은 미스터리로 풀어낸 유작입니다." }
+        ];
+
+        const grid = document.getElementById('film-grid');
+        films.forEach(film => {
+            const card = document.createElement('div');
+            card.className = 'glass film-card rounded-2xl overflow-hidden shadow-lg border border-purple-900/30 card-hover p-6 flex flex-col justify-center items-center text-center';
+            card.innerHTML = `<div class="text-purple-400 font-bold tracking-widest mb-2">${film.year}</div>
+                                 <h3 class="text-lg font-bold text-white">${film.title}</h3>
+                                 <div class="text-[10px] text-gray-500 uppercase mt-2">${film.genre}</div>`;
+            card.onclick = () => openModal(film);
+            grid.appendChild(card);
+        });
+
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedY = Math.random() * 0.5 + 0.1;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.y -= this.speedY;
+                if (this.y < 0) this.reset();
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = '#FFFFFF';
+                ctx.globalAlpha = this.opacity;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 100; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        window.onload = animate;
+
+        function openModal(film) {
+            document.getElementById('modal-title').innerText = film.title;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="mb-4 text-xs text-purple-300"><strong>${film.year} | ${film.genre}</strong></div>
+                <p class="mb-2"><strong>출연:</strong> ${film.actors}</p>
+                <p class="mt-4 leading-relaxed text-gray-300 font-light">${film.desc}</p>
+            `;
+            document.getElementById('modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
