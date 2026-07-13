@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I AM : Stanley Kubrick</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+KR:wght@300;400;700&display=swap');
+
+        :root {
+            --bg-deep: #1a0b2e;
+            --purple-accent: #6b21a8;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-gold: #d8b4fe;
+            --cream: #f3f4f6;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f051c 0%, #1a0b2e 100%);
+            color: var(--cream);
+            font-family: 'Noto Serif KR', serif;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+        }
+
+        /* 복구된 카드 호버 효과 */
+        .strength-card {
+            transition: all 0.3s ease;
+        }
+        .strength-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--purple-accent);
+            box-shadow: 0 10px 30px rgba(107, 33, 168, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-100">
+
+    <!-- Hero -->
+    <header class="h-[60vh] flex flex-col justify-center items-center text-center">
+        <h1 class="text-5xl md:text-6xl mb-6 font-bold text-white">I AM : STANLEY KUBRICK</h1>
+        <p class="text-xl opacity-80">완벽을 향한 편집증적 집착, 스탠리 큐브릭의 세계</p>
+    </header>
+
+    <!-- About -->
+    <section class="py-20 max-w-5xl mx-auto px-6">
+        <h2 class="text-3xl mb-10 text-center font-bold">About Kubrick</h2>
+        <p class="text-center text-lg leading-relaxed opacity-90">영화사의 거장, 스탠리 큐브릭은 기술적 완벽함과 철학적 깊이를 영화라는 매체에 완벽하게 녹여낸 감독입니다.</p>
+    </section>
+
+    <!-- Filmography -->
+    <section id="filmography" class="py-20 max-w-6xl mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-16">Filmography</h2>
+        <div id="film-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <!-- JS로 주입 -->
+        </div>
+    </section>
+
+    <!-- Strengths -->
+    <section id="strengths" class="py-20 max-w-5xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-10">핵심 매력 포인트</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass strength-card p-8 rounded-2xl text-center">
+                <h3 class="text-xl mb-3 text-purple-300">롱테이크</h3>
+                <p>독보적인 호흡의 촬영 기술</p>
+            </div>
+            <div class="glass strength-card p-8 rounded-2xl text-center">
+                <h3 class="text-xl mb-3 text-purple-300">웅장한 미감</h3>
+                <p>화면을 압도하는 대칭적 미학</p>
+            </div>
+            <div class="glass strength-card p-8 rounded-2xl text-center">
+                <h3 class="text-xl mb-3 text-purple-300">완벽한 연출</h3>
+                <p>지독한 완벽주의의 산물</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommendations -->
+    <section id="recommend" class="py-20 max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold mb-10">입문자를 위한 추천작 3편</h2>
+        <div class="flex flex-wrap justify-center gap-6">
+            <span class="px-6 py-3 border border-purple-500 rounded-full text-purple-200">2001: A Space Odyssey</span>
+            <span class="px-6 py-3 border border-purple-500 rounded-full text-purple-200">The Shining</span>
+            <span class="px-6 py-3 border border-purple-500 rounded-full text-purple-200">A Clockwork Orange</span>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="glass p-8 rounded-3xl max-w-lg w-full relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">✕</button>
+            <h3 id="modal-title" class="text-3xl font-bold mb-2 text-purple-300"></h3>
+            <p id="modal-year" class="text-sm opacity-60 mb-6"></p>
+            <div id="modal-content" class="space-y-4"></div>
+        </div>
+    </div>
+
+    <footer class="text-center py-20 opacity-50">&copy; 2026 I AM Kubrick Project.</footer>
+
+    <script>
+        const films = [
+            { year: 1953, title: "Fear and Desire", genre: "War/Drama", cast: "Frank Silvera", desc: "큐브릭의 첫 장편 영화, 전쟁 속에서 길을 잃은 네 명의 병사 이야기." },
+            { year: 1955, title: "Killer's Kiss", genre: "Film Noir", cast: "Jamie Smith", desc: "복서와 무용수의 우연한 만남과 비극적인 사건." },
+            { year: 1956, title: "The Killing", genre: "Crime/Noir", cast: "Sterling Hayden", desc: "경마장 강도 사건을 다룬 치밀한 범죄 스릴러." },
+            { year: 1957, title: "Paths of Glory", genre: "War", cast: "Kirk Douglas", desc: "제1차 세계대전, 부당한 명령에 맞서는 장교의 이야기." },
+            { year: 1960, title: "Spartacus", genre: "Epic/Drama", cast: "Kirk Douglas", desc: "로마 공화정에 맞선 노예 검투사 스파르타쿠스의 대서사시." },
+            { year: 1962, title: "Lolita", genre: "Drama/Romance", cast: "James Mason", desc: "중년 남성과 어린 소녀의 위험하고 파격적인 사랑." },
+            { year: 1964, title: "Dr. Strangelove", genre: "Satire/War", cast: "Peter Sellers", desc: "핵전쟁의 위기를 블랙 코미디로 승화시킨 거장적 풍자." },
+            { year: 1968, title: "2001: A Space Odyssey", genre: "Sci-Fi", cast: "Keir Dullea", desc: "인류의 기원과 우주의 신비를 담은 SF 역작." },
+            { year: 1971, title: "A Clockwork Orange", genre: "Sci-Fi/Crime", cast: "Malcolm McDowell", desc: "폭력성과 인간의 자유의지에 관한 철학적 고찰." },
+            { year: 1975, title: "Barry Lyndon", genre: "Period Drama", cast: "Ryan O'Neal", desc: "18세기 아일랜드 청년의 파란만장한 성공과 몰락." },
+            { year: 1980, title: "The Shining", genre: "Horror", cast: "Jack Nicholson", desc: "고립된 호텔에서 광기로 치닫는 가장의 심리적 공포." },
+            { year: 1987, title: "Full Metal Jacket", genre: "War", cast: "Matthew Modine", desc: "해병대 훈련소와 베트남 전쟁의 비정한 현실." },
+            { year: 1999, title: "Eyes Wide Shut", genre: "Drama/Mystery", cast: "Tom Cruise", desc: "한 부부가 겪는 성적 환상과 질투, 인간 본성의 탐구." }
+        ];
+
+        const grid = document.getElementById('film-grid');
+        const modal = document.getElementById('modal');
+
+        films.forEach(film => {
+            const card = document.createElement('div');
+            card.className = 'glass p-4 rounded-xl cursor-pointer hover:bg-purple-900/30 transition-all text-center';
+            card.innerHTML = `<h4 class="font-bold text-sm">${film.title}</h4><p class="text-xs opacity-50">${film.year}</p>`;
+            card.onclick = () => openModal(film);
+            grid.appendChild(card);
+        });
+
+        function openModal(film) {
+            document.getElementById('modal-title').innerText = film.title;
+            document.getElementById('modal-year').innerText = film.year;
+            document.getElementById('modal-content').innerHTML = `
+                <p><strong>장르:</strong> ${film.genre}</p>
+                <p><strong>주연:</strong> ${film.cast}</p>
+                <p><strong>설명:</strong> ${film.desc}</p>
+            `;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
